@@ -15,4 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+
+Route::resource('/admin/tag','TagController');
+Route::resource('/admin/stpage','StaticPageController');
+    // ->name('StaticPageController@create','stpage.create')
+    // ->name('StaticPageController@store','stpage.store');
+Route::resource('/admin/videopage','VideoPageController');
+
+
+
+

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStaticPagesTable extends Migration
+class CreateVideoPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateStaticPagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('static_pages', function (Blueprint $table) {
+        Schema::create('video_pages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('url');
-            $table->longText('content');
+            $table->longText('description');
             $table->boolean('published')->default(0);
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
-
         });
     }
 
@@ -32,6 +31,6 @@ class CreateStaticPagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('static_pages');
+        Schema::dropIfExists('video_pages');
     }
 }

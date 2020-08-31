@@ -18,6 +18,13 @@ class CreateTagsTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('tag_content', function (Blueprint $table) {
+            $table->bigInteger('tag_id');
+            $table->bigInteger('content_id');
+            $table->string('content_type',80);
+            $table->primary(['tag_id','content_id' ,'content_type' ]);
+        });
     }
 
     /**
@@ -28,5 +35,6 @@ class CreateTagsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tags');
+        Schema::dropIfExists('tag_content');
     }
 }

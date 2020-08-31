@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\tag;
 
-class TagSeeder extends Seeder
+class VideoPageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +12,6 @@ class TagSeeder extends Seeder
     public function run()
     {
         //
-        factory(tag::class,10)->create();
+        factory(App\video_page::class,10)->create();
     }
 }

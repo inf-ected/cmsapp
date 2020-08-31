@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\tag;
+use App\video_page;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class VideoPageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,6 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('tagsPages.main');
-        //dd('test');
         //
     }
 
@@ -43,10 +41,10 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\tag  $tag
+     * @param  \App\video_page  $video_page
      * @return \Illuminate\Http\Response
      */
-    public function show(tag $tag)
+    public function show(video_page $video_page)
     {
         //
     }
@@ -54,10 +52,10 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\tag  $tag
+     * @param  \App\video_page  $video_page
      * @return \Illuminate\Http\Response
      */
-    public function edit(tag $tag)
+    public function edit(video_page $video_page)
     {
         //
     }
@@ -66,10 +64,10 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\tag  $tag
+     * @param  \App\video_page  $video_page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tag $tag)
+    public function update(Request $request, video_page $video_page)
     {
         //
     }
@@ -77,10 +75,10 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\tag  $tag
+     * @param  \App\video_page  $video_page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tag $tag)
+    public function destroy(video_page $video_page)
     {
         //
     }
