@@ -14,9 +14,14 @@ class StaticPageController extends Controller
      */
     public function index()
     {
-        $pages = static_page::all();
-        // $pages = static_page::orderBy('id','desc');
-        //dd($pages);
+        //самый простой способ
+        // $pages = static_page::all();
+        // способ с сортировокой
+        // $pages = static_page::orderBy('id','desc')-get();
+        // способ с пагинацией
+        // $pages = static_page::orderBy('id','desc')-paginate(5);
+        
+        $pages= static_page::orderby('id','desc')->paginate(5);
         return view('staticPages.main', compact('pages'));
     }
 
@@ -130,6 +135,8 @@ class StaticPageController extends Controller
      */
     public function show($id)
     {
+        // ОБЯЗАТЕЛЬНО ДОЛЖЕН БЫТЬ ПОСЛЕ ДЕСТРОЯ !!!! 
+        // иначе ловит его по то му же роуту и метод делете не работает
         $page = static_page::findOrFail($id);
         $title = 'Show Page';
         return view('staticPages.ViewModel', compact('page', 'title'));

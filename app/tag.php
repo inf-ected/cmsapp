@@ -15,6 +15,7 @@ class tag extends Model
     protected $fillable = [
         'name'
     ];
+    protected $hidden =['id'];
 
     protected $table='tags';
 }

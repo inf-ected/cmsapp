@@ -13,9 +13,13 @@ class static_page extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'url', 'content','published'
+        
+      'title', 
+      'url', 
+      'content',
+      'published'
     ];
-
+    protected $hidden = ['id'];
     protected $table ='static_pages';
 
 

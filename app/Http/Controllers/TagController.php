@@ -14,9 +14,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('tagsPages.main');
-        //dd('test');
-        //
+        $tags= tag::orderby('id','desc')->paginate(5);
+        return view('tagsPages.main', compact('tags'));
     }
 
     /**
@@ -26,7 +25,10 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        $tag = new tag();
+        // $page->published = 0;
+        $title = 'Create New Tag';
+        return view('tagsPages.ViewModel', compact('tag','title'));
     }
 
     /**
@@ -37,19 +39,13 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+        tag::create($request->all());
+        return redirect()->route('tag.index')->with('info', 'tag added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(tag $tag)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,9 +53,13 @@ class TagController extends Controller
      * @param  \App\tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(tag $tag)
+    public function edit($id)
     {
-        //
+        $where = array('id' => $id);
+        $tag = tag::where($where)->first();
+        $title='Edit Existing Tag';
+
+        return view('tagsPages.ViewModel',compact('tag','title'));
     }
 
     /**
@@ -69,9 +69,16 @@ class TagController extends Controller
      * @param  \App\tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tag $tag)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+        tag::where('id',$id)->update([
+            'name'=> request('name'),
+        ]);
+
+        return redirect()->route('tag.index')->with('info', 'tag updated !');
     }
 
     /**
@@ -80,8 +87,25 @@ class TagController extends Controller
      * @param  \App\tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tag $tag)
+    public function destroy($id)
     {
-        //
+        tag::where('id',$id)->delete();
+
+        return redirect()->route('tag.index')->with('info', 'tag deleted !');
+
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\tag  $tag
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $tag = tag::findOrFail($id);
+        $title = 'Show Tag';
+        return view('tagsPages.ViewModel', compact('tag', 'title'));
+    }
+
 }
