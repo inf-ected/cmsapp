@@ -61,6 +61,9 @@
 
                     </div>
                 </div>
+
+                @include('template.partial.tags')
+
                 <button type="submit" class="btn btn-primary"
                     {{ $title == 'Create New Static Page' || $title == 'Edit Existing Page' ? '' : 'disabled' }}>Submit</button>
             </div>

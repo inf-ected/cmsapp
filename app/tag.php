@@ -18,4 +18,16 @@ class tag extends Model
     protected $hidden =['id'];
 
     protected $table='tags';
+
+    public function static_pges(){
+        return $this->belongsToMany(static_page::class,'tag_content')
+        ->wherePivot('content_type',static_page::class);
+      }
+    public function video_pges(){
+        return $this->belongsToMany(video_page::class,'tag_content')
+        ->wherePivot('content_type',video_page::class);
+      }
+                 
+
+
 }

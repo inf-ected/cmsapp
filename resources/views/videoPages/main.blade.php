@@ -43,8 +43,9 @@
                 @endforeach
             </tbody>
         </table>
-
-        {{ $pages->links() }}
+<div class="container ">
+    {{ $pages->links() }}
+</div>
     </div>
 
 @endsection

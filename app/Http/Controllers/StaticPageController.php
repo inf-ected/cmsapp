@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\static_page;
+use App\tag;
 use Illuminate\Http\Request;
 
 class StaticPageController extends Controller
@@ -22,6 +23,7 @@ class StaticPageController extends Controller
         // $pages = static_page::orderBy('id','desc')-paginate(5);
         
         $pages= static_page::orderby('id','desc')->paginate(5);
+
         return view('staticPages.main', compact('pages'));
     }
 
@@ -36,7 +38,9 @@ class StaticPageController extends Controller
         $page = new static_page();
         $page->published = 0;
         $title = 'Create New Static Page';
-        return view('staticPages.ViewModel', compact('page','title'));
+        $all_tags = tag::all()->pluck('name','id');
+
+        return view('staticPages.ViewModel', compact('page','title','all_tags'));
     }
 
     /**
@@ -82,8 +86,9 @@ class StaticPageController extends Controller
         $where = array('id' => $id);
         $page = static_page::where($where)->first();
         $title='Edit Existing Page';
+        $all_tags = tag::all()->pluck('name','id');
 
-        return view('staticPages.ViewModel',compact('page','title'));
+        return view('staticPages.ViewModel',compact('page','title','all_tags'));
     }
 
     /**
@@ -139,6 +144,9 @@ class StaticPageController extends Controller
         // иначе ловит его по то му же роуту и метод делете не работает
         $page = static_page::findOrFail($id);
         $title = 'Show Page';
-        return view('staticPages.ViewModel', compact('page', 'title'));
+        // dd($page->tags);
+        // dd(static_page::class, tag::class);
+        $all_tags = tag::all()->pluck('name','id');
+        return view('staticPages.ViewModel', compact('page', 'title','all_tags'));
     }
 }

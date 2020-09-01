@@ -22,5 +22,9 @@ class static_page extends Model
     protected $hidden = ['id'];
     protected $table ='static_pages';
 
+    public function tags(){
+      return $this->belongsToMany(tag::class,'tag_content','content_id','tag_id')
+      ->wherePivot('content_type',static_page::class);
+    }
 
 }
