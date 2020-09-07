@@ -1,5 +1,6 @@
 <?php
 
+use App\static_page;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -20,10 +20,15 @@ Route::get('/', function () {
 
 Route::resource('/admin/tag','TagController');
 Route::resource('/admin/stpage','StaticPageController');
-    // ->name('StaticPageController@create','stpage.create')
-    // ->name('StaticPageController@store','stpage.store');
+// Route::get('/admin/stpage','StaticPageController@index');
+
+// ->name('StaticPageController@create','stpage.create')
+// ->name('StaticPageController@store','stpage.store');
 Route::resource('/admin/videopage','VideoPageController');
 
 
 
 
+Route::get('/{url}',function($url){
+return static_page::where('url','/'.$url)->first()->content;
+});
