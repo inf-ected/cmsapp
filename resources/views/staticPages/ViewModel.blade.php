@@ -1,7 +1,7 @@
 @extends('template.default')
 
 @section('content')
-
+    {{-- {{ dd($page) }} --}}
 
     <div class="container">
 

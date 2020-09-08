@@ -100,6 +100,8 @@ class StaticPageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->tags);
+
         //
         $request->validate([
             'title' => 'required|max:255',
@@ -114,9 +116,56 @@ class StaticPageController extends Controller
             'published' =>request('published') 
         ]);
 
+        // $page=static_page::where('id',$id)->get(); //dd($page);
+        // foreach($request->tags as $tagId){
+        //     dump($tagId);
+        //      $tag=tag::findOrFail($tagId);
+        //     dump($tag);
+        //     // $tag = new Tag([
+        //     //     'id'=>$tagKey,
+        //     //     'name'=>$tagName
+        //     // ]);
+        //     //  $page->tags()->attach($tag);
+        // }
+            
+
+        // $page->tags()->update([
+        //     $request->tags
+        // ]);
+           // dd($request->tags);
+        //    dd($page->tags());
+        //    dd($request->input('tags'));
+        //dd($request->tags);
+            $tagArr=[];// = new array();
+        foreach($request->tags as $tagId){
+            $tagArr[$tagId]=array( 'content_type' => static_page::class );
+        }
+
+         $page=static_page::findOrFail($id);
+         //$page->tags()->sync((array)$request->input('tags'));
+         $page->tags()->sync($tagArr);
+
+            // $page->tags()->sync((array)$request->input('tags'));//,['content_type'=>static_page::class]);
+            // dd(' ');
         return redirect()->route('stpage.index')->with('info', 'page updated !');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\static_page  $static_page
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) 
+    {
+
+        $page = static_page::findOrFail($id);
+        $title = 'Show Page';
+         //dd($page->tags);
+        // dd(static_page::class, tag::class);
+        $all_tags = tag::all()->pluck('name','id');
+        return view('staticPages.ViewModel', compact('page', 'title','all_tags'));
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -126,27 +175,11 @@ class StaticPageController extends Controller
     public function destroy($id)
     {
         //
-        static_page::where('id',$id)->delete();
+        // static_page::where('id',$id)->delete();
+
 
         return redirect()->route('stpage.index')->with('info', 'page deleted !');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\static_page  $static_page
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // ОБЯЗАТЕЛЬНО ДОЛЖЕН БЫТЬ ПОСЛЕ ДЕСТРОЯ !!!! 
-        // иначе ловит его по то му же роуту и метод делете не работает
-        $page = static_page::findOrFail($id);
-        $title = 'Show Page';
-        // dd($page->tags);
-        // dd(static_page::class, tag::class);
-        $all_tags = tag::all()->pluck('name','id');
-        return view('staticPages.ViewModel', compact('page', 'title','all_tags'));
-    }
 }

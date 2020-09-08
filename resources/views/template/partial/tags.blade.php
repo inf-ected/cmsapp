@@ -9,9 +9,10 @@
     @endforeach
     <hr>
     <h4>ALL EXISTING TAGS!</h4>
-    @foreach ($all_tags as $tag)
+    @foreach ($all_tags as $tagId => $tagName )
 
-        <span class="badge badge-info">{{ $tag }}</span>
+        <input type="checkbox" name="tags[]" value="{{ $tagId }}"/>
+        <span class="badge badge-info">{{ $tagName }}</span>
 
     @endforeach
 <hr>
